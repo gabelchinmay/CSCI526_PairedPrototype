@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic; // Import the System.Collections.Generic namespace for dictionaries
-
-
-using TMPro; // Import TextMeshPro namespace
+using System.Collections.Generic; 
+using TMPro; 
 
 
 public class PlayerController : MonoBehaviour
@@ -20,14 +18,14 @@ public class PlayerController : MonoBehaviour
     private Color currentColour;
     private PlatformController CurrPlatform = null;
     public int maxHealth = 100;
-    private int currentHealth;
-    public TMP_Text healthText; // Reference to the TMP Text component
+    private int currentHealth; 
+    public TMP_Text healthText; 
     public TMP_Text gameOverText;
     public TMP_Text InventoryText;
     public Image HealthSkeleton;
     public Image HealthBar;
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
-    private Vector3 playerPreviousPosition; // Add this variable
+    private Vector3 playerPreviousPosition;
     public GameObject placeholderPrefab;
     private bool isOnDefrost = false;
 
@@ -44,12 +42,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isOnPlatform)
+        // On Java/Frost
+        if (!isOnPlatform)
         {
             //Debug.Log("On platform");
+            speed = 10.0f;
+            canJump = true;
 
         }
-        
+        else
+        {
+            canJump = false;
+
+        }
+
+        // Jumping
         if (Input.GetButtonDown("Jump") && jumpCount < maxJumps && canJump)
         {
             Jump();
@@ -60,14 +67,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        // Movements
         if(!isGameOver){
             float horizontalInput = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
             
 
         }
-        // Handle horizontal movement
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+
 
         if (inventory.Count != 0)
         {
@@ -104,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
                 playerPreviousPosition = transform.position;
                 Vector3 placeholderPosition = playerPreviousPosition - Vector3.up * 0.7f;
-                transform.Translate(Vector2.right * 1.1f); // Move 0.1 units to the right
+                transform.Translate(Vector2.right * 1.1f); 
                 Instantiate(placeholderPrefab, placeholderPosition, Quaternion.identity);
 
                 if (inventory.ContainsKey("Placeholder"))
@@ -240,11 +252,12 @@ public class PlayerController : MonoBehaviour
     {
         while (true){
 
-            if(!isOnPlatform ){
-                speed = 10.0f;
-                yield return new WaitForSeconds(0.5f);
-                continue;
-            }
+            //if(!isOnPlatform ){
+                //speed = 10.0f;
+                //canJump = true;
+                //yield return new WaitForSeconds(0.01f);
+                //continue;
+            //}
             currentColour = Color.black;
 
             if(CurrPlatform != null){
@@ -253,11 +266,11 @@ public class PlayerController : MonoBehaviour
 
             if(isOnPlatform)
             {
-                if(currentColour == Color.red){
+                //canJump = false;
+                if (currentColour == Color.red){
                     Debug.Log("Inflicting Damage.....");
                     this.TakeDamage(2);
                     speed = 10.0f;
-                    yield return new WaitForSeconds(0.5f);
                 }
 
                 else if(currentColour == Color.cyan && !isOnDefrost)
@@ -265,13 +278,13 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Inflicting Damage.....");
                     this.TakeDamage(1);
                     speed = 1.0f;
-                    yield return new WaitForSeconds(0.5f);
+                    
                 }
                 else{
                     speed = 10.0f;
-                    yield return new WaitForSeconds(0.5f);
                 }
 
+                yield return new WaitForSeconds(0.5f);
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -292,14 +305,19 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateHealthUI()
     {
-        if (healthText != null)
+        if (healthText != null && !isGameOver)
         {
+            if(currentHealth <= 0)
+            {
+                currentHealth = 0;
+            }
+            
             HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-            healthText.text = "Health: " + currentHealth.ToString()+"/100";
+            healthText.text = "Health: " + currentHealth.ToString()+"/"+maxHealth.ToString();
         }
         else
         {
-            Debug.LogError("TMP Text component not assigned in the Inspector.");
+            Debug.Log("Game Over or TMP Text component not assigned in the Inspector.");
         }
     }
 
@@ -308,7 +326,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the player collided with a pickup item
         if (collision.CompareTag("HealthUp") || collision.CompareTag("SpeedUp") || collision.CompareTag("Defrost") || collision.CompareTag("Placeholder") || collision.CompareTag("JumpHigher"))
         {
 
@@ -323,7 +340,7 @@ public class PlayerController : MonoBehaviour
                     inventory[itemName] = 1;
                 }
 
-                HandlePickupEffects(itemName);
+                //HandlePickupEffects(itemName); // To do
 
                 Destroy(collision.gameObject);
             }
@@ -331,17 +348,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Function to handle the effects of collected items
-    private void HandlePickupEffects(string itemName)
-    {
-        switch (itemName)
-        {
-            case "Health":
-                break;
-            case "Ability":
-                break;
-        }
-    }
+
+    // To do
+    //private void HandlePickupEffects(string itemName)
+    //{
+    //    switch (itemName)
+    //    {
+    //        case "Health":
+    //            break;
+    //        case "Ability":
+    //            break;
+    //    }
+    //}
 
 
 }
