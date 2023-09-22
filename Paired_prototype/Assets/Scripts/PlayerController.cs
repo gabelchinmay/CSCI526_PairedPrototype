@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private Color currentColour;
     private PlatformController CurrPlatform = null;
     public int maxHealth = 100;
-    private int currentHealth;
+    private int currentHealth; // change to public for changing in special levels
     public TMP_Text healthText; // Reference to the TMP Text component
     public TMP_Text gameOverText;
     public TMP_Text InventoryText;
