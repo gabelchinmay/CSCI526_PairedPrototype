@@ -361,7 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 322860967}
   smoothSpeed: 1
-  offset: {x: 7, y: 2, z: -14}
+  offset: {x: 8, y: 2, z: -14}
 --- !u!1 &634281259
 GameObject:
   m_ObjectHideFlags: 0
