@@ -42,6 +42,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        currentColour = Color.black;
+
+        if (CurrPlatform != null)
+        {
+            currentColour = CurrPlatform.getSpriteColor();
+        }
         // On Java/Frost
         if (!isOnPlatform)
         {
@@ -52,8 +58,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            canJump = false;
-
+            if(currentColour == Color.red || (currentColour == Color.cyan && !isOnDefrost))
+            {
+                canJump = false;
+            }
+            else
+            {
+                canJump = true;
+            }
         }
 
         // Jumping
@@ -199,7 +211,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         if(!isGameOver){
-            rb.velocity = new Vector2(rb.velocity.x, 0); // Reset vertical velocity before jump.
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         }
@@ -208,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
     private System.Collections.IEnumerator ResetJumpCooldown()
     {
-        yield return new WaitForSeconds(1.7f); // Adjust the cooldown duration as needed
+        yield return new WaitForSeconds(1.5f); 
         canJump = true;
         jumpCount=0;
     }
@@ -229,9 +241,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator JumpHigherPowerUp()
     {
         jumpForce = 14.0f;
-
         yield return new WaitForSeconds(5.0f);
-
         jumpForce = 7.0f;
 
     }
@@ -239,9 +249,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DefrostPowerUp()
     {
         isOnDefrost = true;
-
         yield return new WaitForSeconds(5.0f);
-
         isOnDefrost = false;
 
     }
@@ -251,34 +259,18 @@ public class PlayerController : MonoBehaviour
     private IEnumerator InflictDamages()
     {
         while (true){
-
-            //if(!isOnPlatform ){
-                //speed = 10.0f;
-                //canJump = true;
-                //yield return new WaitForSeconds(0.01f);
-                //continue;
-            //}
-            currentColour = Color.black;
-
-            if(CurrPlatform != null){
-                currentColour = CurrPlatform.getSpriteColor();
-            }
-
             if(isOnPlatform)
             {
-                //canJump = false;
+                
                 if (currentColour == Color.red){
-                    Debug.Log("Inflicting Damage.....");
                     this.TakeDamage(2);
                     speed = 10.0f;
                 }
 
                 else if(currentColour == Color.cyan && !isOnDefrost)
                 {
-                    Debug.Log("Inflicting Damage.....");
                     this.TakeDamage(1);
                     speed = 1.0f;
-                    
                 }
                 else{
                     speed = 10.0f;
@@ -315,10 +307,6 @@ public class PlayerController : MonoBehaviour
             HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
             healthText.text = "Health: " + currentHealth.ToString()+"/"+maxHealth.ToString();
         }
-        else
-        {
-            Debug.Log("Game Over or TMP Text component not assigned in the Inspector.");
-        }
     }
 
 
@@ -340,26 +328,10 @@ public class PlayerController : MonoBehaviour
                     inventory[itemName] = 1;
                 }
 
-                //HandlePickupEffects(itemName); // To do
-
                 Destroy(collision.gameObject);
             }
 
 
     }
-
-
-    // To do
-    //private void HandlePickupEffects(string itemName)
-    //{
-    //    switch (itemName)
-    //    {
-    //        case "Health":
-    //            break;
-    //        case "Ability":
-    //            break;
-    //    }
-    //}
-
 
 }

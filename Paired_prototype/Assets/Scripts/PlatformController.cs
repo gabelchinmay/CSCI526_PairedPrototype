@@ -6,14 +6,12 @@ public class PlatformController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     public string platformType;
-    //private Collider2D myCollider;
 
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        //myCollider = GetComponent<Collider2D>();
         if( platformType == "Tri")
         {
             StartCoroutine(ColorTriChangingLoop());
@@ -28,9 +26,7 @@ public class PlatformController : MonoBehaviour
         }
         else if(platformType == "Bi") {
             StartCoroutine(ColorBiChangingLoop());
-
         }
-        
     }
 
     private void Update()
@@ -51,8 +47,6 @@ public class PlatformController : MonoBehaviour
             spriteRenderer.color = Color.cyan;
             yield return new WaitForSeconds(5f);
 
-            //spriteRenderer.color = originalColor;
-            //yield return new WaitForSeconds(5f);
         }
     }
 
@@ -60,17 +54,13 @@ public class PlatformController : MonoBehaviour
     {
         while (true)
         {
-            //spriteRenderer.color = originalColor;
-            //yield return new WaitForSeconds(5f);
+
 
             spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(5f);
 
             spriteRenderer.color = Color.cyan;
             yield return new WaitForSeconds(5f);
-
-            //spriteRenderer.color = originalColor;
-            //yield return new WaitForSeconds(5f);
         }
     }
 
@@ -104,6 +94,5 @@ public class PlatformController : MonoBehaviour
         return this.spriteRenderer.color;
 
     }
-
 
 }
