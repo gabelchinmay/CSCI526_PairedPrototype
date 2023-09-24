@@ -485,6 +485,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7523905617811977676, guid: f65a32f1f080f477786a037bcf6e81dd, type: 3}
   m_PrefabInstance: {fileID: 1928682281}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &486768415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2327608401022078517, guid: df40229f7eab94490bb764a34777a35f, type: 3}
+  m_PrefabInstance: {fileID: 369736279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb710914dfdeca4e93ca36cfe8d833d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &634281259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1794,10 @@ PrefabInstance:
       propertyPath: HealthSkeleton
       value: 
       objectReference: {fileID: 369736284}
+    - target: {fileID: 8013627977215371535, guid: cc6edef9e5bf14d889d9eb821b4f687a, type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 486768415}
     - target: {fileID: 8013627977215371535, guid: cc6edef9e5bf14d889d9eb821b4f687a, type: 3}
       propertyPath: placeholderPrefab
       value: 

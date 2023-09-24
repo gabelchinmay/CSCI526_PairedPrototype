@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject placeholderPrefab;
     private bool isOnDefrost = false;
 
-
+    public GameOverScreen gameOverScreen;
 
     void Start()
     {
@@ -293,6 +293,7 @@ public class PlayerController : MonoBehaviour
         {
             gameOverText.gameObject.SetActive(true);
             this.freeze();
+            gameOverScreen.SetUp();
         }
     }
     private void UpdateHealthUI()
