@@ -10,6 +10,7 @@ public class CountdownTimer : MonoBehaviour
     private bool isCountingDown = false;
 
     public PlayerController player;
+    public GameOverScreen gameOverScreen;
 
     private void Start()
     {
@@ -65,8 +66,9 @@ public class CountdownTimer : MonoBehaviour
 
     private void HandleTimerEnd()
     {
-        ShowGameOverText(); 
-        player.freeze();
+        ShowGameOverText();
         Debug.Log("Game Over!");
+        gameOverScreen.SetUp();
+        
     }
 }

@@ -1695,6 +1695,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df40229f7eab94490bb764a34777a35f, type: 3}
+--- !u!114 &3278267855317482223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7461170248440360466, guid: df40229f7eab94490bb764a34777a35f, type: 3}
+  m_PrefabInstance: {fileID: 3278267855317482222}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ab3c43d3f14c449a73d142a3733975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3592692152320606057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2001,6 +2012,10 @@ PrefabInstance:
       propertyPath: HealthSkeleton
       value: 
       objectReference: {fileID: 1207903247}
+    - target: {fileID: 8013627977215371535, guid: cc6edef9e5bf14d889d9eb821b4f687a, type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 3278267855317482223}
     - target: {fileID: 8013627977215371535, guid: cc6edef9e5bf14d889d9eb821b4f687a, type: 3}
       propertyPath: placeholderPrefab
       value: 
