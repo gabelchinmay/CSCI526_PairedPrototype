@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            gameOverText.gameObject.SetActive(true);
+            //gameOverText.gameObject.SetActive(true);
             this.freeze();
             gameOverScreen.SetUp();
         }

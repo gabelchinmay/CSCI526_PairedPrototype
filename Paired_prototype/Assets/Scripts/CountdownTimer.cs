@@ -66,7 +66,7 @@ public class CountdownTimer : MonoBehaviour
 
     private void HandleTimerEnd()
     {
-        ShowGameOverText(); 
+        //ShowGameOverText(); 
         player.freeze();
         Debug.Log("Game Over!");
         gameOverScreen.SetUp();
