@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject placeholderPrefab;
     private bool isOnDefrost = false;
 
-
+    public GameOverScreen gameOverScreen;
 
     void Start()
     {
@@ -291,8 +291,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            gameOverText.gameObject.SetActive(true);
+            //gameOverText.gameObject.SetActive(true);
             this.freeze();
+            gameOverScreen.SetUp();
         }
     }
     private void UpdateHealthUI()
